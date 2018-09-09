@@ -8,22 +8,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 body {font-family: "Lato", sans-serif}
-.mySlides {display: none}
-  .fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
-}
 
-@-webkit-keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
-}
-
-@keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
+.mySlides{
+position:absolute;
+  transition: opacity .5s ease-in;
 }
 </style>
 <body>
@@ -60,28 +48,30 @@ body {font-family: "Lato", sans-serif}
 <div class="w3-content" style="max-width:2000px;margin-top:46px">
 
   <!-- Automatic Slideshow Images -->
-  <div class="mySlides w3-display-container w3-center fade">
+  <div class="w3-display-container w3-center" style="position:relative;">
+  <div class="mySlides">
+  
     <img src="/w3images/la.jpg" style="width:100%">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <h3>Los Angeles</h3>
       <p><b>We had the best time playing at Venice Beach!</b></p>   
     </div>
   </div>
-  <div class="mySlides w3-display-container w3-center fade">
+  <div class="mySlides w3-display-container w3-center">
     <img src="/w3images/ny.jpg" style="width:100%">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <h3>New York</h3>
       <p><b>The atmosphere in New York is lorem ipsum.</b></p>    
     </div>
   </div>
-  <div class="mySlides w3-display-container w3-center fade">
+  <div class="mySlides w3-display-container w3-center">
     <img src="/w3images/chicago.jpg" style="width:100%">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <h3>Chicago</h3>
       <p><b>Thank you, Chicago - A night we won't forget.</b></p>    
     </div>
   </div>
-
+</div>
   <!-- The Band Section -->
   <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
     <h2 class="w3-wide">THE BAND</h2>
@@ -235,20 +225,18 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
 
 <script>
 // Automatic Slideshow - change image every 4 seconds
-var myIndex = 0;
-carousel();
 
-function carousel() {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
-    for (i = 0; i < x.length; i++) {
-       x[i].style.display = "none";  
-    }
-    myIndex++;
-    if (myIndex > x.length) {myIndex = 1}    
-    x[myIndex-1].style.display = "block";  
-    setTimeout(carousel, 4000);    
-}
+var current = 0,
+    slides = document.getElementsByClassName("mySlides");
+
+setInterval(function() {
+  for (var i = 0; i < slides.length; i++) {
+    slides[i].style.opacity = 0;
+  }
+  current = (current != slides.length - 1) ? current + 1 : 0;
+  slides[current].style.opacity =1;
+}, 3000);
+
 
 // Used to toggle the menu on small screens when clicking on the menu button
 function myFunction() {
